@@ -2,27 +2,24 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from keras_preprocessing import image
-import cv2
 import FlowerGUI as fl
 
-cnn = tf.keras.models.load_model("modelTest")
-path = 'Predictions/pappu.jpg'
-cvimage = cv2.imread(path)
+class_names = ['daisy', 'dandelion', 'roses', 'sunflowers', 'tulips']
 
-test_img = image.load_img(path, target_size=(64, 64))
-test_img = image.img_to_array(test_img)
-test_img = np.expand_dims(test_img, axis=0)
-result = cnn.predict(test_img)
+model = tf.keras.models.load_model("modelTest")
+path = "Predictions/surajmukhi.jpg"
 
-if result[0][0] == 1:
-    res = "Daisy"
-elif result[0][1] == 1:
-    res = "Dandelion"
-elif result[0][2] == 1:
-    res = "Rose"
-elif result[0][3] == 1:
-    res = "Sunflower"
-elif result[0][4] == 1:
-    res = "Tulip"
+img = tf.keras.utils.load_img(
+    path, target_size=(180, 180)
+)
 
-fl.NewFrame.MakeTrivia("This image is an : ", res, path)
+img_array = tf.keras.utils.img_to_array(img)
+img_array = tf.expand_dims(img_array, 0)  # Create a batch
+
+result = model.predict(img_array)
+score = tf.nn.softmax(result[0])
+
+fl.NewFrame.MakeTrivia(
+    "This image most likely belongs to {} with a {:.2f} percent confidence."
+    .format(class_names[np.argmax(score)], 100 * np.max(score)),
+    ImagePath=path)
