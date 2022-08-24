@@ -15,6 +15,9 @@ interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
 
 path = filedialog.askopenfilename(title="Choose An Image", filetypes=[('image files', ('.png', '.jpg'))])
 
+if path == '':
+    quit()
+
 img = tf.keras.utils.load_img(
     path, target_size=(180, 180)
 )
