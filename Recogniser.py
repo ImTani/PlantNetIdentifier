@@ -1,10 +1,12 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.preprocessing import image
+from tensorflow import keras
+from keras_preprocessing import image
 import cv2
+import FlowerGUI as fl  
 
 cnn = tf.keras.models.load_model("modelTest")
-path = 'Predictions/guess.jpg'
+path = 'Predictions/dandelions.jpg'
 cvimage = cv2.imread(path)
 
 test_img = image.load_img(path, target_size=(64, 64))
@@ -23,6 +25,4 @@ elif result[0][3] == 1:
 elif result[0][4] == 1:
     res = "Tulip"
 
-cv2.imshow(res, cvimage)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+fl.NewFrame.MakeTrivia("This image is an : ", res, path, "LolzyPOPO")
