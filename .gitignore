@@ -34,6 +34,7 @@ MANIFEST
 *.spec
 upx.exe
 PSVenv/
+flower_image.png
 
 # Installer logs
 pip-log.txt
