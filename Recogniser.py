@@ -113,7 +113,8 @@ Fun Fact : Tulips used to be the currency of The Netherlands at one point in tim
 
 # # # GUI # # #
 
-FontStyle = ("Segoi UI", 12)
+FontStyle = ("Segoi UI Light", 12)
+FontStyleText = ("Segoi UI", 18)
 FontStyleBig = ("Segoi UI Bold", 24)
 
 def Speak(audio):
@@ -131,7 +132,7 @@ def ButtonExitCommand():
 def ShowGuess():
     global current_frame
     current_frame.grid_forget()
-    guess_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=12, pady=24)
+    guess_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=80, pady=24)
     guess_frame.columnconfigure(0, weight=1)
     guess_frame.columnconfigure(1, weight=1)
     guess_frame.columnconfigure(2, weight=1)
@@ -142,7 +143,7 @@ def ShowGuess():
 def ShowMain():
     global current_frame
     current_frame.grid_forget()
-    main_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=24, pady=48)
+    main_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=300, pady=100)
     main_frame.columnconfigure(0, weight=1)
     main_frame.rowconfigure(0, weight=1)
     main_frame.rowconfigure(1, weight=1)
@@ -151,7 +152,7 @@ def ShowMain():
 def ShowRose():
     global current_frame
     current_frame.grid_forget()
-    rose_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=12, pady=24)
+    rose_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=60, pady=24)
     rose_frame.columnconfigure(0, weight=1)
     rose_frame.rowconfigure(0, weight=1)
     current_frame = rose_frame
@@ -159,7 +160,7 @@ def ShowRose():
 def ShowDaisy():
     global current_frame
     current_frame.grid_forget()
-    daisy_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=12, pady=24)
+    daisy_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=60, pady=24)
     daisy_frame.columnconfigure(0, weight=1)
     daisy_frame.rowconfigure(0, weight=1)
     current_frame = daisy_frame
@@ -167,7 +168,7 @@ def ShowDaisy():
 def ShowSunflower():
     global current_frame
     current_frame.grid_forget()
-    sunflower_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=12, pady=24)
+    sunflower_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=60, pady=24)
     sunflower_frame.columnconfigure(0, weight=1)
     sunflower_frame.rowconfigure(0, weight=1)
     current_frame = sunflower_frame
@@ -175,7 +176,7 @@ def ShowSunflower():
 def ShowDandelion():
     global current_frame
     current_frame.grid_forget()
-    dandelion_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=12, pady=24)
+    dandelion_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=60, pady=24)
     dandelion_frame.columnconfigure(0, weight=1)
     dandelion_frame.rowconfigure(0, weight=1)
     current_frame = dandelion_frame
@@ -183,7 +184,7 @@ def ShowDandelion():
 def ShowTulip():
     global current_frame
     current_frame.grid_forget()
-    tulip_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=12, pady=24)
+    tulip_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=60, pady=24)
     tulip_frame.columnconfigure(0, weight=1)
     tulip_frame.rowconfigure(0, weight=1)
     current_frame = tulip_frame
@@ -325,9 +326,9 @@ def MakeDaisy():
 
 def MakeGuess(Label1_Text: str, ImagePath: str):
         
-    label = ctk.CTkLabel(guess_frame, text=Label1_Text, text_font=FontStyle)
+    label = ctk.CTkLabel(guess_frame, text=Label1_Text, text_font=FontStyleText)
     # label.pack(padx=10, pady=12)
-    label.grid(row=0, column=1, pady=20, sticky=tk.N)
+    label.grid(row=0, column=1, pady=40, sticky=tk.N)                  
     
     myImage = Image.open(ImagePath)
     
@@ -361,6 +362,9 @@ def MakeMain():
     button1 = ctk.CTkButton(master=main_frame, text="Start", width=60,
                             text_font=FontStyleBig, command=lambda: ShowGuess())
     button1.grid(row=1, column=0, pady=10)
+    
+    label2 = ctk.CTkLabel(main_frame, text="Made by : Tanishk Narula", text_font=FontStyle)
+    label2.grid(row=2, column=0, pady=20, padx=20, sticky=tk.SE)
     
 def ChangeFrames():
     if class_names[np.argmax(score_lite)] == "Rose":
@@ -408,11 +412,16 @@ def PredictStuff():
 
 root = ctk.CTk()
 ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+ctk.set_default_color_theme("green")
 root.title("PlantNet Identification")
 root.geometry('1000x700')
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
+
+bg = ImageTk.PhotoImage(file='./Predictions/Background.png')
+canv = ctk.CTkCanvas(root, width=1366, height=768)
+canv.grid(row=0, column=0, sticky=tk.NW)
+canv.create_image(0, 0, image=bg, anchor='nw')
 
 main_frame = ctk.CTkFrame(root)
 main_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=24, pady=48)
