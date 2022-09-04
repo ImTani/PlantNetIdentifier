@@ -173,7 +173,7 @@ def ShowSunflower():
     sunflower_frame.rowconfigure(0, weight=1)
     current_frame = sunflower_frame
 
-def ShowDandelion():
+def ShowDandelion():    
     global current_frame
     current_frame.grid_forget()
     dandelion_frame.grid(row=0, column=0, sticky=tk.NSEW, padx=60, pady=24)
@@ -365,7 +365,7 @@ def MakeMain():
     
     label2 = ctk.CTkLabel(main_frame, text="Made by : Tanishk Narula", text_font=FontStyle)
     label2.grid(row=2, column=0, pady=20, padx=20, sticky=tk.SE)
-    
+
 def ChangeFrames():
     if class_names[np.argmax(score_lite)] == "Rose":
         ShowRose()
